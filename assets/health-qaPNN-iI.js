@@ -1,0 +1,1 @@
+function e(a=100){return{hp:a,max:a,dead:!1,hurtT:0}}function r(a,t){a.dead||t<=0||(a.hp=Math.max(0,a.hp-t),a.hurtT=.4,a.hp===0&&(a.dead=!0))}function u(a,t){a.dead||(a.hp=Math.min(a.max,a.hp+t))}function d(a,t){a.hurtT=Math.max(0,a.hurtT-t)}function n(a){a.hp=a.max,a.dead=!1,a.hurtT=0}export{e as c,r as d,u as h,n as r,d as t};
