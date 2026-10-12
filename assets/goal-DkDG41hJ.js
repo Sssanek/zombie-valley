@@ -1,0 +1,1 @@
+const i={castle:"Попасть в замок",king:"Убить короля",bride:"Забрать невесту",carry:"Унести её туда, где очнулся",fight:"Убить её",home:"Вернуться туда, где очнулся"};function u({reached:t,castleAt:n,kingDead:e,finale:r}){return r==="end"?null:r==="won"?"home":r==="turn"||r==="fight"?"fight":r==="carry"?"carry":e?"bride":t>=n?"king":"castle"}export{i as GOALS,u as goalAt};

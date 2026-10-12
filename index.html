@@ -79,6 +79,7 @@
     #end .rows p { margin: 3px 0; display: flex; gap: 40px; justify-content: space-between; min-width: 360px; }
     #end .rows i { font-style: normal; color: #b8a8c8; }
     #end .hint { margin: 10px 0 0; color: #8a6a7a; font-style: italic; font-size: 15px; }
+    #end .credit { font-size: 11px; color: #7a6a8a; font-weight: 400; margin-top: 10px; }
     #end .again { margin-top: 14px; color: #8a7a9a; font-size: 14px; }
     #plaque { position: fixed; left: 50%; top: 58%; transform: translateX(-50%); pointer-events: none; opacity: 0; transition: opacity 0.7s; }
     #plaque.on { opacity: 1; animation: dread 2.8s ease-in-out infinite; }
@@ -140,10 +141,10 @@
       color: #ffd890; font: 700 20px ui-monospace, Menlo, monospace; text-shadow: 3px 3px 0 #2a0006; pointer-events: none; }
     #dead h1 { font-size: 64px; margin: 0 0 12px; color: #ff3030; }
   </style>
-  <script type="module" crossorigin src="./assets/index-DcZtRzlM.js"></script>
+  <script type="module" crossorigin src="./assets/index-CnfT2NCe.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/three.module-XIyfNGYK.js">
   <link rel="modulepreload" crossorigin href="./assets/config-BKam7wqf.js">
-  <link rel="modulepreload" crossorigin href="./assets/game-CUmMAsOT.js">
+  <link rel="modulepreload" crossorigin href="./assets/game-DE-IoDGG.js">
   <link rel="modulepreload" crossorigin href="./assets/math-DbhsiLJH.js">
   <link rel="modulepreload" crossorigin href="./assets/controller-CVz6_z1r.js">
   <link rel="modulepreload" crossorigin href="./assets/health-qaPNN-iI.js">
@@ -173,7 +174,7 @@
     <div id="boss" class="hidden"><span>КОРОЛЬ-ЗОМБИ</span><div id="bossBar"><div id="bossChunk"></div><div id="bossFill"></div></div></div>
   </div>
   <div id="plaque"><canvas></canvas></div>
-  <div id="end" class="hidden" onclick="location.reload()"><h1>УРОВЕНЬ ПРОЙДЕН</h1><p class="name"></p><b class="grade"></b><div class="rows"></div><p class="hint">Где-то очень далеко кто-то недовольно цокнул языком.</p><p class="again">Кликни — заново</p></div>
+  <div id="end" class="hidden" onclick="location.reload()"><h1>УРОВЕНЬ ПРОЙДЕН</h1><p class="name"></p><b class="grade"></b><div class="rows"></div><p class="hint">Где-то очень далеко кто-то недовольно цокнул языком.</p><p class="credit">Музыка из туалета: «Fluffing a Duck», Kevin MacLeod (incompetech.com), CC BY 4.0</p><p class="again">Кликни — заново</p></div>
   <div id="dialog" class="hidden"><canvas class="face"></canvas><div class="body"><b class="who"></b><p class="text"></p><div class="opts"></div></div></div>
   <div id="dead" class="hidden"><h1>ТЫ МЁРТВ</h1><p>Кликни, чтобы снова в бой</p></div>
   <div id="overlay"><h1>ЗОМБИ-ДОЛИНА</h1><p id="status">Загрузка мира…</p></div>
