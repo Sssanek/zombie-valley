@@ -153,12 +153,18 @@
     #bossChunk { background: #ffd890; transition: width 0.5s ease-in 0.45s; } /* the bite a blow took lingers, then drains */
     #bossFill { background: linear-gradient(#d0283c, #8a0a1c 60%, #4e0410); }
     #cross { position: absolute; left: 50%; top: 50%; width: 4px; height: 4px; margin: -2px 0 0 -2px; background: #ffd890; box-shadow: 0 0 0 1px #1a0a10; }
+    /* the blue pill's trip: a blue glow breathing in from the screen's edges, its hue drifting, while it lasts */
+    #trip { position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.8s; mix-blend-mode: screen;
+      background: radial-gradient(ellipse at center, transparent 38%, rgba(40, 110, 255, 0.55) 78%, rgba(120, 60, 255, 0.85) 100%); animation: trip 2.4s ease-in-out infinite; }
+    #trip.on { opacity: 1; }
+    #trip.fade { opacity: 0.4; }
+    @keyframes trip { 0%, 100% { filter: hue-rotate(0deg) blur(0); transform: scale(1); } 50% { filter: hue-rotate(-50deg) blur(2px); transform: scale(1.04); } }
     #hurt { position: fixed; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at center, transparent 45%, rgba(160, 0, 20, 0.85) 100%); }
     #dead { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(60, 0, 8, 0.55);
       color: #ffd890; font: 700 20px ui-monospace, Menlo, monospace; text-shadow: 3px 3px 0 #2a0006; pointer-events: none; }
     #dead h1 { font-size: 64px; margin: 0 0 12px; color: #ff3030; }
   </style>
-  <script type="module" crossorigin src="./assets/index-Bd-Ycwa-.js"></script>
+  <script type="module" crossorigin src="./assets/index-vMkj73l4.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/three.module-BblPRNwT.js">
   <link rel="modulepreload" crossorigin href="./assets/config-BKam7wqf.js">
   <link rel="modulepreload" crossorigin href="./assets/game-DE-IoDGG.js">
@@ -172,7 +178,7 @@
 </head>
 <body>
   <canvas id="game"></canvas>
-  <div id="hurt"></div>
+  <div id="hurt"></div><div id="trip"></div>
   <div id="hud" class="hidden">
     <div id="pops"></div>
     <div id="score"><b id="scoreN">0</b><div id="combo"><div id="comboRow"><i id="comboMax">МАКС</i><span id="comboBump"><b id="comboX"></b></span></div>
