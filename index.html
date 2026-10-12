@@ -70,17 +70,30 @@
     #dialog .opts p { margin: 4px 0; font-size: 20px; color: #ffb070; }
     #dialog .opts .hint { color: #8a7a9a; font-size: 15px; }
     #dialog .opts.wait { visibility: hidden; }
-    #end { position: fixed; inset: 0; z-index: 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: radial-gradient(ellipse at center, rgba(60,0,8,0.82), rgba(8,0,2,0.96));
+    /* the end, Hotline Miami style: stripes rolling behind, the title shaking in two colours, the stats sliding in and counting up,
+       the grade stamped down last, then what you missed */
+    #end { position: fixed; inset: 0; z-index: 9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; overflow: hidden;
+      background: repeating-linear-gradient(-30deg, rgba(90,0,14,0.9) 0 40px, rgba(40,0,8,0.94) 40px 80px); background-size: 160px 160px; animation: endRoll 6s linear infinite;
       color: #e8dcc8; font: 700 18px ui-monospace, Menlo, monospace; cursor: pointer; text-align: center; }
+    #end::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 30%, rgba(4,0,2,0.85) 80%); pointer-events: none; }
+    #end > * { position: relative; }
     #end.hidden { display: none; }
-    #end h1 { margin: 0; font-size: 64px; letter-spacing: 8px; color: #ff3a30; text-shadow: 4px 4px 0 #2a0006; }
-    #end .name { margin: 0; color: #ffd890; letter-spacing: 3px; }
-    #end .grade { font-size: 180px; line-height: 1; color: #ffd890; text-shadow: 6px 6px 0 #7a0812, 12px 12px 0 #1a0a10; }
-    #end .rows p { margin: 3px 0; display: flex; gap: 40px; justify-content: space-between; min-width: 360px; }
-    #end .rows i { font-style: normal; color: #b8a8c8; }
-    #end .hint { margin: 10px 0 0; color: #8a6a7a; font-style: italic; font-size: 15px; }
-    #end .credit { font-size: 11px; color: #7a6a8a; font-weight: 400; margin-top: 10px; }
-    #end .again { margin-top: 14px; color: #8a7a9a; font-size: 14px; }
+    @keyframes endRoll { to { background-position: 160px 0; } }
+    #end h1 { margin: 0; font-size: 66px; letter-spacing: 8px; color: #ffe8c0; text-shadow: -4px 0 #ff2a5a, 4px 0 #2ad8ff, 6px 6px 0 #1a0006; animation: endShake 0.12s steps(1) infinite; transform: skewX(-8deg); }
+    @keyframes endShake { 0% { transform: skewX(-8deg) translate(0, 0); } 33% { transform: skewX(-8deg) translate(2px, -1px); } 66% { transform: skewX(-8deg) translate(-2px, 1px); } }
+    #end .name { margin: 0 0 4px; color: #ffd890; letter-spacing: 4px; }
+    #end .rows p { margin: 2px 0; display: flex; gap: 40px; justify-content: space-between; min-width: 400px; padding: 2px 12px; background: rgba(10,0,4,0.55); opacity: 0; animation: endRow 0.3s ease-out forwards; }
+    @keyframes endRow { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
+    #end .rows i { font-style: normal; color: #c8b0d0; }
+    #end .rows b { color: #fff0c8; }
+    #end .grade { font-size: 190px; line-height: 1; color: #ffd890; text-shadow: -6px 0 #ff2a5a, 6px 0 #2ad8ff, 10px 10px 0 #1a0a10; opacity: 0; animation: endStamp 0.35s cubic-bezier(.2,1.6,.4,1) forwards; }
+    @keyframes endStamp { from { opacity: 0; transform: scale(3) rotate(-12deg); } to { opacity: 1; transform: scale(1) rotate(-6deg); } }
+    #end .missed { margin-top: 6px; opacity: 0; animation: endRow 0.4s ease-out forwards; }
+    #end .missed b { display: block; color: #ff4a3a; letter-spacing: 4px; font-size: 16px; margin-bottom: 4px; }
+    #end .missed p { margin: 2px 0; color: #e8c8b8; font-style: italic; font-weight: 400; font-size: 16px; }
+    #end .hint { margin: 8px 0 0; color: #a88a9a; font-style: italic; font-size: 15px; }
+    #end .credit { font-size: 11px; color: #8a7a9a; font-weight: 400; margin-top: 8px; }
+    #end .again { margin-top: 10px; color: #c8b8d8; font-size: 14px; animation: dread 1.4s ease-in-out infinite; }
     #plaque { position: fixed; left: 50%; top: 58%; transform: translateX(-50%); pointer-events: none; opacity: 0; transition: opacity 0.7s; }
     #plaque.on { opacity: 1; animation: dread 2.8s ease-in-out infinite; }
     #plaque canvas { display: block; image-rendering: pixelated; }
@@ -95,6 +108,10 @@
     #st { position: absolute; left: 24px; bottom: 8px; width: 260px; height: 6px; border: 2px solid #1a0a10; background: #1c2414; box-shadow: 0 0 0 1px #3a4a1a; }
     #stfill { height: 100%; width: 100%; background: linear-gradient(#f0f080, #a8b830); }
     #st.winded #stfill { background: #7a6a3a; }
+    #timer { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); font-size: 22px; letter-spacing: 3px; color: #e8dcc8; text-shadow: -2px -2px #1a0a10, 2px -2px #1a0a10, -2px 2px #1a0a10, 2px 2px #1a0a10, 3px 3px 0 #5a0a10; } /* the run's time */
+    #tips { position: absolute; left: 50%; bottom: 150px; transform: translateX(-50%); font-size: 20px; letter-spacing: 2px; color: #fff4d8; opacity: 0; transition: opacity 0.5s; text-shadow: -2px -2px #1a0a10, 2px -2px #1a0a10, -2px 2px #1a0a10, 2px 2px #1a0a10, 3px 3px 0 #7a0812; white-space: nowrap; } /* the first minute's tips (ui/tips.js) */
+    #tips.on { opacity: 1; animation: tipBob 1.6s ease-in-out infinite; }
+    @keyframes tipBob { 50% { margin-bottom: 4px; } }
     #goal { position: absolute; left: 26px; top: 18px; color: #ffd890; text-shadow: -2px -2px #1a0a10, 2px -2px #1a0a10, -2px 2px #1a0a10, 2px 2px #1a0a10, 4px 4px 0 #5a0a10; } /* what to do now (level/goal.js) */
     #goal.hidden { display: none; }
     #goal span { display: block; font-size: 13px; letter-spacing: 3px; color: #a08ab0; }
@@ -141,7 +158,7 @@
       color: #ffd890; font: 700 20px ui-monospace, Menlo, monospace; text-shadow: 3px 3px 0 #2a0006; pointer-events: none; }
     #dead h1 { font-size: 64px; margin: 0 0 12px; color: #ff3030; }
   </style>
-  <script type="module" crossorigin src="./assets/index-CnfT2NCe.js"></script>
+  <script type="module" crossorigin src="./assets/index-Cu3hv1Sa.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/three.module-XIyfNGYK.js">
   <link rel="modulepreload" crossorigin href="./assets/config-BKam7wqf.js">
   <link rel="modulepreload" crossorigin href="./assets/game-DE-IoDGG.js">
@@ -151,7 +168,7 @@
   <link rel="modulepreload" crossorigin href="./assets/sword-Db46wwe0.js">
   <link rel="modulepreload" crossorigin href="./assets/pistol-Bp3r5UcH.js">
   <link rel="modulepreload" crossorigin href="./assets/brain-CezSxd8L.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-D2769CP0.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-ACtl2GTf.css">
 </head>
 <body>
   <canvas id="game"></canvas>
@@ -168,13 +185,14 @@
       <div class="slot" data-arm="pistol"><b class="key">3</b><canvas></canvas><div class="cnt"><b></b>/<i></i></div><div class="bar"><div></div></div></div>
       <div class="slot" data-arm="smg"><b class="key">4</b><canvas></canvas><div class="cnt"><b></b>/<i></i></div><div class="bar"><div></div></div></div>
     </div>
+    <div id="timer">00:00</div><div id="tips"></div>
     <div id="mark" class="hidden"><i>▼</i><span></span></div>
     <div id="goal" class="hidden"><span>ЗАДАЧА</span><b></b></div>
     <div id="cross"></div>
     <div id="boss" class="hidden"><span>КОРОЛЬ-ЗОМБИ</span><div id="bossBar"><div id="bossChunk"></div><div id="bossFill"></div></div></div>
   </div>
   <div id="plaque"><canvas></canvas></div>
-  <div id="end" class="hidden" onclick="location.reload()"><h1>УРОВЕНЬ ПРОЙДЕН</h1><p class="name"></p><b class="grade"></b><div class="rows"></div><p class="hint">Где-то очень далеко кто-то недовольно цокнул языком.</p><p class="credit">Музыка из туалета: «Fluffing a Duck», Kevin MacLeod (incompetech.com), CC BY 4.0</p><p class="again">Кликни — заново</p></div>
+  <div id="end" class="hidden" onclick="location.reload()"><h1>УРОВЕНЬ ПРОЙДЕН</h1><p class="name"></p><div class="rows"></div><b class="grade"></b><div class="missed"></div><p class="hint">Где-то очень далеко кто-то недовольно цокнул языком.</p><p class="credit">Музыка из туалета: «Fluffing a Duck», Kevin MacLeod (incompetech.com), CC BY 4.0</p><p class="again">Кликни — заново</p></div>
   <div id="dialog" class="hidden"><canvas class="face"></canvas><div class="body"><b class="who"></b><p class="text"></p><div class="opts"></div></div></div>
   <div id="dead" class="hidden"><h1>ТЫ МЁРТВ</h1><p>Кликни, чтобы снова в бой</p></div>
   <div id="overlay"><h1>ЗОМБИ-ДОЛИНА</h1><p id="status">Загрузка мира…</p></div>

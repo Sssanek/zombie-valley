@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Зомби-долина: вики</title>
+<style>
+  :root { --bg: #0e0712; --panel: #1a0c18; --line: #5a1a14; --text: #e8dcc8; --dim: #a898b0; --gold: #ffd890; --red: #ff3a30; --blood: #9a0016; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 ui-monospace, Menlo, Consolas, monospace; }
+  a { color: var(--gold); }
+  header { padding: 40px 16px 28px; text-align: center; background: repeating-linear-gradient(-30deg, #2a0610 0 30px, #1a040c 30px 60px); border-bottom: 3px solid var(--line); }
+  header h1 { margin: 0; font-size: clamp(34px, 8vw, 64px); letter-spacing: 6px; color: #ffe8c0; text-shadow: -3px 0 #ff2a5a, 3px 0 #2ad8ff, 5px 5px 0 #1a0006; transform: skewX(-8deg); }
+  header p { margin: 10px auto 0; max-width: 720px; color: var(--dim); }
+  header .play { display: inline-block; margin-top: 16px; padding: 10px 22px; background: var(--blood); color: #ffe8b0; text-decoration: none; letter-spacing: 3px; box-shadow: 4px 4px 0 #1a0a10; }
+  nav { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px; padding: 10px 16px; background: rgba(14,7,18,0.95); border-bottom: 2px solid var(--line); font-size: 14px; }
+  nav a { text-decoration: none; letter-spacing: 1px; }
+  main { max-width: 1040px; margin: 0 auto; padding: 0 16px 60px; }
+  h2 { margin: 48px 0 14px; font-size: 26px; letter-spacing: 4px; color: var(--red); text-shadow: 3px 3px 0 #2a0006; border-bottom: 2px solid var(--line); padding-bottom: 6px; }
+  h3 { margin: 0 0 6px; color: var(--gold); letter-spacing: 1px; font-size: 19px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 2px solid var(--line); box-shadow: 4px 4px 0 #0a0406; }
+  .card img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; image-rendering: pixelated; border-bottom: 2px solid var(--line); }
+  .card .body { padding: 12px 14px 14px; }
+  .card p { margin: 6px 0; }
+  .tag { display: inline-block; font-size: 12px; padding: 1px 7px; margin: 0 6px 4px 0; background: #2a1020; color: var(--dim); letter-spacing: 1px; }
+  .tag.boss { background: var(--blood); color: #ffe8b0; }
+  ul { padding-left: 20px; margin: 6px 0; } li { margin: 3px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+  td, th { text-align: left; padding: 6px 10px; border-bottom: 1px solid #3a1a2a; vertical-align: top; }
+  th { color: var(--gold); font-weight: 700; }
+  td:first-child { white-space: nowrap; color: var(--gold); }
+  .wide { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .wide img { width: 100%; display: block; border: 2px solid var(--line); image-rendering: pixelated; }
+  details { margin: 14px 0; background: var(--panel); border: 2px dashed var(--blood); }
+  summary::-webkit-details-marker { display: none; }
+  summary { list-style: none; cursor: pointer; padding: 12px 14px; color: var(--red); letter-spacing: 2px; font-weight: 700; }
+  details[open] summary { border-bottom: 2px dashed var(--blood); }
+  details > .inner { padding: 14px; }
+  .note { color: var(--dim); font-size: 14px; }
+  footer { text-align: center; color: var(--dim); font-size: 13px; padding: 30px 16px; border-top: 2px solid var(--line); }
+  @media (max-width: 720px) { .wide { grid-template-columns: 1fr; } td:first-child { white-space: normal; } header h1 { letter-spacing: 2px; } table { font-size: 14px; } td, th { padding: 5px 6px; } .cards { grid-template-columns: 1fr; } }
+  body { overflow-x: hidden; } p, li, td { overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ЗОМБИ-ДОЛИНА</h1>
+  <p>Кровавая баня от первого лица: рыцарь с огромным мечом и обрезом прорубается через орды мертвецов — поле, деревня, скала, готический замок — чтобы спасти принцессу из самой высокой башни. Классическая история. Наверное.</p>
+  <a class="play" href="../">ИГРАТЬ</a>
+</header>
+<nav>
+  <a href="#play">Как играть</a><a href="#weapons">Оружие</a><a href="#score">Очки</a><a href="#enemies">Враги</a><a href="#folk">Персонажи</a><a href="#places">Места</a><a href="#secrets">Секреты</a>
+</nav>
+<main>
+
+<h2 id="play">КАК ИГРАТЬ</h2>
+<div class="wide">
+  <div>
+    <table>
+      <tr><td>WASD</td><td>идти</td></tr>
+      <tr><td>Shift</td><td>бег (тратит выносливость)</td></tr>
+      <tr><td>Пробел</td><td>прыжок — через ударные волны тоже</td></tr>
+      <tr><td>ЛКМ</td><td>удар мечом / выстрел; ППШ — зажать</td></tr>
+      <tr><td>1 2 3 4 / колесо</td><td>меч, обрез, револьвер, ППШ</td></tr>
+      <tr><td>1 2 3 в разговоре</td><td>выбрать ответ; Пробел / ЛКМ — дальше</td></tr>
+      <tr><td>Esc</td><td>пауза: звуки, музыка, трек</td></tr>
+    </table>
+    <ul>
+      <li><b>Задача</b> всегда в левом верхнем углу. Когда нужно найти дверь или дорогу, на экране появляется стрелка с расстоянием.</li>
+      <li><b>Время</b> идёт сверху по центру. В первую минуту внизу всплывают подсказки и исчезают, как только ты сделал, что нужно.</li>
+      <li><b>Чекпоинты</b> расставлены по дороге: после смерти ты возвращаешься к последнему. В бою с финальным боссом — прямо к началу боя.</li>
+      <li><b>Аптечки</b> лежат у дороги, на алтаре в церкви и в замке: +50 здоровья, если ты ранен.</li>
+      <li><b>Музыка</b>: в меню и в паузе кнопка «ТРЕК» переключает три мелодии, а «MP3» включает твои собственные файлы (они остаются у тебя в браузере).</li>
+    </ul>
+  </div>
+  <img src="img/menu.jpg" alt="Стартовое меню: имя рыцаря и три карточки сложности" loading="lazy">
+</div>
+<h3 style="margin-top:20px">Сложность</h3>
+<p>Меч в игре у всех одинаковый — карточки в меню только для самооценки. Сложность меняет три вещи:</p>
+<table>
+  <tr><th></th><th>Лёгкий</th><th>Средний</th><th>Сложный</th></tr>
+  <tr><td>Зомби</td><td>×0,5</td><td>×1</td><td>×1,7</td></tr>
+  <tr><td>Здоровье боссов</td><td>×0,6</td><td>×1</td><td>×1,5</td></tr>
+  <tr><td>Убийств до тронного зала</td><td>100</td><td>250</td><td>500</td></tr>
+</table>
+
+<h2 id="weapons">ОРУЖИЕ</h2>
+<div class="cards">
+  <div class="card"><img src="img/gore.jpg" alt="Меч разрубает зомби" loading="lazy"><div class="body"><h3>Двуручный меч</h3><span class="tag">с самого начала</span>
+    <p>Комбо из трёх ударов: справа налево, наотмашь, и тяжёлый удар сверху, который сотрясает землю и отбрасывает всех вокруг. Рубит насквозь нескольких, отсекает руки, ноги и головы.</p></div></div>
+  <div class="card"><img src="img/shotgun.jpg" alt="Обрез в руках" loading="lazy"><div class="body"><h3>Обрез</h3><span class="tag">с самого начала</span>
+    <p>10 патронов, восстанавливаются сами. Дробь в упор рвёт на куски, издалека только щекочет. Видно, куда легла дробь.</p></div></div>
+  <div class="card"><img src="img/pistol.jpg" alt="Револьвер в руках" loading="lazy"><div class="body"><h3>Револьвер</h3><span class="tag">даёт отец Варфоломей</span>
+    <p>16 патронов, точный. Выстрел в голову убивает зомби наповал и сносит ему голову.</p></div></div>
+  <div class="card"><img src="img/smg.jpg" alt="ППШ в руках" loading="lazy"><div class="body"><h3>ППШ «Папаша»</h3><span class="tag">даёт дед Пахом</span>
+    <p>50 патронов, зажми ЛКМ. Урона мало (4 попадания на зомби), крови много: длинной очередью отрывает куски. Чем дольше очередь, тем сильнее разброс.</p></div></div>
+</div>
+
+<h2 id="score">ОЧКИ, КОМБО И ОЦЕНКА</h2>
+<div class="wide">
+  <div>
+    <ul>
+      <li>Каждое убийство в коротком окне поднимает множитель до <b>×8</b>. Укус режет его вдвое.</li>
+      <li>Больше очков за стиль: голова с плеч, пополам, оторванные конечности, несколько за один удар или выстрел, хедшот, дуплет в упор.</li>
+      <li>В конце уровня — экран в духе Hotline Miami: счёт, время, убийства, снесённые головы, лучшее комбо, смерти, найденные секреты и буква оценки.</li>
+      <li>Экран конца подскажет, что ты <b>упустил</b> — но не скажет, как это найти.</li>
+    </ul>
+  </div>
+  <img src="img/endscreen.jpg" alt="Экран конца уровня с оценкой" loading="lazy">
+</div>
+
+<h2 id="enemies">ВРАГИ</h2>
+<div class="cards">
+  <div class="card"><img src="img/horde.jpg" alt="Толпа шатунов на дороге" loading="lazy"><div class="body"><h3>Шатун</h3><span class="tag">обычный зомби</span>
+    <p>Сгорбленный, тощий и тяжёлый одновременно, с красными глазами. Ходят толпами и волнами. Перед укусом замахиваются — можно отойти или сбить удар. Без ног ползут, без рук кусаются, без челюсти царапаются.</p></div></div>
+  <div class="card"><img src="img/brute.jpg" alt="Громилы" loading="lazy"><div class="body"><h3>Громила</h3><span class="tag">дорога к замку и дальше</span>
+    <p>Огромный и бронированный: обычный удар мечом наполовину гаснет в нём, а тяжёлый сверху проходит целиком. Бьёт так, что отбрасывает назад.</p></div></div>
+  <div class="card"><img src="img/king.jpg" alt="Король-зомби в тронном зале" loading="lazy"><div class="body"><h3>Король-зомби</h3><span class="tag boss">босс</span>
+    <p>Ждёт у трона, просыпается, когда ты входишь в зал, — и двери захлопываются. Три фазы:</p>
+    <ul><li>удар кулаками с ударной волной, размашистый удар когтями, захват, если стоять вплотную;</li>
+    <li>прыжок с кольцевой волной (перепрыгни или убеги) и призыв мертвецов;</li>
+    <li>ярость: быстрее, связки ударов, рёв, который сбивает с ног.</li></ul>
+    <p class="note">Тяжёлый удар мечом или дуплет в упор заставляют его пошатнуться.</p></div></div>
+</div>
+<details>
+  <summary>▶ СПОЙЛЕР: настоящий финальный босс</summary>
+  <div class="inner">
+    <div class="cards">
+      <div class="card"><img src="img/bride.jpg" alt="Принцесса в истинном облике" loading="lazy"><div class="body"><h3>Принцесса</h3><span class="tag boss">финальный босс</span>
+        <p>Почти у самого старта она превращается. Втрое больше короля, бой — в поле на склоне, и держаться подальше бесполезно:</p>
+        <ul>
+          <li>вблизи — когти, захват и <b>вращение платьем</b>: выйди из круга;</li>
+          <li>на средней дистанции — <b>хлыст волосами</b> по прямой: отойди в сторону;</li>
+          <li>издалека — <b>плевки кровью</b> по дуге туда, где ты стоишь;</li>
+          <li>со второй фазы — <b>руки из земли</b> и <b>кровавый дождь</b>: земля сначала бурлит, уходи;</li>
+          <li>изредка — <b>рывок</b> по прямой: увернись вбок, после него она теряет равновесие;</li>
+          <li>призывает мертвецов, в третьей фазе ревёт.</li>
+        </ul></div></div>
+      <div class="card"><img src="img/bridespin.jpg" alt="Принцесса раскручивается для удара платьем" loading="lazy"><div class="body"><h3>Как её победить</h3>
+        <p>Держись на средней дистанции, но не на одной линии с ней. Бей после рывка и после промаха захватом. Если ты оставил деду Пахому его ППШ и он дожил до финала — он поможет.</p>
+        <p>Когда она умирает, из неё бьёт кровавый гейзер и над долиной идёт кровавый дождь. Потом нужно дойти туда, где ты очнулся.</p></div></div>
+    </div>
+  </div>
+</details>
+
+<h2 id="folk">ПЕРСОНАЖИ</h2>
+<div class="cards">
+  <div class="card"><img src="img/pakhom.jpg" alt="Разговор с дедом Пахомом" loading="lazy"><div class="body"><h3>Дед Пахом</h3><span class="tag">телега у поля</span>
+    <p>Сидит на телеге с бутылками и луком. Пока ты дерёшься рядом, орёт «Руби их, железный!». Отдаёт ППШ за волшебное слово. Расскажет про мор, короля, царевну и бабку-ведьму — если спрашивать. После разговора за ним приходят зомби.</p></div></div>
+  <div class="card"><img src="img/priest.jpg" alt="Разговор с отцом Варфоломеем" loading="lazy"><div class="body"><h3>Отец Варфоломей</h3><span class="tag">церковь в деревне</span>
+    <p>Укушенный священник у алтаря. Чует, что от тебя пахнет землёй. Отдаёт отцовский револьвер. Через несколько секунд после разговора обращается и идёт на тебя — сильнее и быстрее обычных.</p></div></div>
+  <div class="card"><img src="img/knights.jpg" alt="Рыцари у дороги" loading="lazy"><div class="body"><h3>Рыцари короля</h3><span class="tag">последнее ополчение</span>
+    <p>Парами держат дорогу. Дерутся с мертвецами, а не с тобой — и почти бесполезно: каждый уносит с собой одного зомби, не больше. Их разрывают и едят. Ты тоже можешь их зарубить.</p></div></div>
+</div>
+
+<h2 id="places">МЕСТА</h2>
+<div class="cards">
+  <div class="card"><img src="img/village.jpg" alt="Деревня" loading="lazy"><div class="body"><h3>Деревня</h3><p>Фахверковые дома, разбитые двери, кровь на стенах, колодцы, огороды. Волны лезут из домов и с кладбища.</p></div></div>
+  <div class="card"><img src="img/church.jpg" alt="Внутри церкви" loading="lazy"><div class="body"><h3>Церковь</h3><p>Можно войти. Скамьи, распятие, свечи, аптечка на алтаре — и отец Варфоломей.</p></div></div>
+  <div class="card"><img src="img/barn.jpg" alt="Внутри амбара" loading="lazy"><div class="body"><h3>Амбары</h3><p>В три амбара можно зайти: сеновал с лестницей, тюки, стойла, фонарь на балке и кровавый след в последнее стойло.</p></div></div>
+  <div class="card"><img src="img/walls.jpg" alt="Боевой ход на стене замка" loading="lazy"><div class="body"><h3>Замок</h3><p>Двор с виселицами, кострами и пиками всегда полон мертвецов. На стены ведут лестницы: там жаровни, баллисты, котлы со смолой и мёртвые лучники.</p></div></div>
+  <div class="card"><img src="img/throne.jpg" alt="Тронный зал" loading="lazy"><div class="body"><h3>Тронный зал</h3><p>Закрыт, пока ты не прольёшь достаточно крови нежити — табличка у дверей считает. После смерти короля в боковом проходе светится дверь к подъёмнику.</p></div></div>
+  <div class="card"><img src="img/princess.jpg" alt="Принцесса на вершине башни" loading="lazy"><div class="body"><h3>Вершина башни</h3><p>Подъёмник на цепях везёт на самый верх. Там, у скамьи с подушками и розами, ждёт принцесса. Возьми её на руки — и неси домой.</p></div></div>
+</div>
+
+<h2 id="secrets">СЕКРЕТЫ</h2>
+<p>Экран конца считает три секрета и намекает на остальное. Ниже — всё, без утайки.</p>
+<details>
+  <summary>▶ СПОЙЛЕР: туалет</summary>
+  <div class="inner wide">
+    <img src="img/privy.jpg" alt="Деревенский туалет с сердечком на двери" loading="lazy">
+    <div><p>За самым дальним от дороги амбаром стоит деревенский туалет с сердечком на двери и навесным замком. С дороги его не видно. Подойди ближе — изнутри играет музыка.</p><p class="note">«Fluffing a Duck», Kevin MacLeod (incompetech.com), CC BY 4.0.</p></div>
+  </div>
+</details>
+<details>
+  <summary>▶ СПОЙЛЕР: дед Пахом</summary>
+  <div class="inner wide">
+    <img src="img/pakhomgun.jpg" alt="Дед Пахом стоит на телеге с ППШ" loading="lazy">
+    <div>
+      <ul>
+        <li>После разговора к Пахому идут четверо мертвецов из поля. Заруби их — и он выживет.</li>
+        <li>Когда он спрашивает волшебное слово, можно ответить «Оставь себе, дед. Тебе нужнее». Тогда ППШ останется у него: он будет отстреливаться от мертвецов, которые за ним придут, а в финальном бою встанет на телегу и будет стрелять в принцессу.</li>
+        <li>Если Пахом жив, после финального боя к нему можно подойти ещё раз — он всё видел. В конце этого разговора — намёк на того, кто тебя послал.</li>
+        <li>Если молчать в первом разговоре, он расскажет про длинного в балахоне.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+<details>
+  <summary>▶ СПОЙЛЕР: святой Варфоломей (самый большой спойлер)</summary>
+  <div class="inner wide">
+    <img src="img/saint.jpg" alt="Святой Варфоломей с крыльями и нимбом" loading="lazy">
+    <div>
+      <ul>
+        <li>Отца Варфоломея можно отпустить человеком: в разговоре спроси, укусили ли его, сколько ему осталось, и предложи уйти человеком. Или просто ударь его мечом после разговора, пока он не обратился.</li>
+        <li>Если ты понесёшь принцессу, так и не зайдя в церковь, отче к тому времени умрёт сам — ни револьвера, ни святого.</li>
+        <li>Если отпустил — после финального боя вернись в церковь. Над тем местом, где он лежал, будет святой в белом и золотом. Он скажет то, чего игра больше нигде не говорит. Потом он вознесётся.</li>
+      </ul>
+    </div>
+  </div>
+</details>
+<details>
+  <summary>▶ СПОЙЛЕР: принцесса на руках</summary>
+  <div class="inner wide">
+    <img src="img/carry.jpg" alt="Принцесса на руках у рыцаря" loading="lazy">
+    <div><p>Пока ты её несёшь, оружия нет, долина пустеет, играет тема любви, а она говорит ласковые вещи. Прислушайся: некоторые фразы звучат… странно.</p></div>
+  </div>
+</details>
+
+</main>
+<footer>
+  Картины: Эдмунд Блэр Лейтон «Посвящение в рыцари» (1901), Джон Уильям Уотерхаус «La Belle Dame sans Merci» (1893) — общественное достояние, Wikimedia Commons.<br>
+  Музыка в туалете: «Fluffing a Duck», Kevin MacLeod (incompetech.com), CC BY 4.0. Остальной звук и музыка синтезированы в игре.
+</footer>
+</body>
+</html>
