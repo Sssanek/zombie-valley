@@ -94,6 +94,17 @@
     #st { position: absolute; left: 24px; bottom: 8px; width: 260px; height: 6px; border: 2px solid #1a0a10; background: #1c2414; box-shadow: 0 0 0 1px #3a4a1a; }
     #stfill { height: 100%; width: 100%; background: linear-gradient(#f0f080, #a8b830); }
     #st.winded #stfill { background: #7a6a3a; }
+    #goal { position: absolute; left: 26px; top: 18px; color: #ffd890; text-shadow: -2px -2px #1a0a10, 2px -2px #1a0a10, -2px 2px #1a0a10, 2px 2px #1a0a10, 4px 4px 0 #5a0a10; } /* what to do now (level/goal.js) */
+    #goal.hidden { display: none; }
+    #goal span { display: block; font-size: 13px; letter-spacing: 3px; color: #a08ab0; }
+    #goal b { display: block; margin-top: 2px; font-size: 22px; letter-spacing: 1px; }
+    #goal.new b { animation: goalNew 1.6s steps(8) 1; }
+    @keyframes goalNew { 0%, 25%, 50% { color: #fff4d8; transform: translateX(6px); } 12%, 37%, 62% { color: #c8102a; transform: none; } 100% { color: #ffd890; } }
+    #mark { position: absolute; transform: translate(-50%, -100%); text-align: center; color: #b8d0ff; text-shadow: -2px -2px #0a0a1a, 2px -2px #0a0a1a, -2px 2px #0a0a1a, 2px 2px #0a0a1a; animation: markBob 0.9s ease-in-out infinite; } /* the way on, over the tower door */
+    #mark.hidden { display: none; }
+    #mark i { display: block; font: normal 700 30px/1 ui-monospace, Menlo, monospace; }
+    #mark span { font-size: 14px; letter-spacing: 1px; }
+    @keyframes markBob { 50% { margin-top: -6px; } }
     #arms { position: absolute; right: 16px; bottom: 12px; zoom: 1.5; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; } /* weapon panel (ui/hud.js) */
     #arms .slot { position: relative; box-sizing: border-box; width: 184px; height: 46px; padding: 0 10px 0 14px; display: grid; grid: 1fr auto auto 1fr / 88px 1fr; column-gap: 10px;
       background: rgba(14, 9, 20, 0.82); border: 2px solid #1a0a10; box-shadow: 0 0 0 2px #3a2a48; transform-origin: 100% 50%; }
@@ -129,7 +140,7 @@
       color: #ffd890; font: 700 20px ui-monospace, Menlo, monospace; text-shadow: 3px 3px 0 #2a0006; pointer-events: none; }
     #dead h1 { font-size: 64px; margin: 0 0 12px; color: #ff3030; }
   </style>
-  <script type="module" crossorigin src="./assets/index-C4XLFgkc.js"></script>
+  <script type="module" crossorigin src="./assets/index-DcZtRzlM.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/three.module-XIyfNGYK.js">
   <link rel="modulepreload" crossorigin href="./assets/config-BKam7wqf.js">
   <link rel="modulepreload" crossorigin href="./assets/game-CUmMAsOT.js">
@@ -156,6 +167,8 @@
       <div class="slot" data-arm="pistol"><b class="key">3</b><canvas></canvas><div class="cnt"><b></b>/<i></i></div><div class="bar"><div></div></div></div>
       <div class="slot" data-arm="smg"><b class="key">4</b><canvas></canvas><div class="cnt"><b></b>/<i></i></div><div class="bar"><div></div></div></div>
     </div>
+    <div id="mark" class="hidden"><i>▼</i><span></span></div>
+    <div id="goal" class="hidden"><span>ЗАДАЧА</span><b></b></div>
     <div id="cross"></div>
     <div id="boss" class="hidden"><span>КОРОЛЬ-ЗОМБИ</span><div id="bossBar"><div id="bossChunk"></div><div id="bossFill"></div></div></div>
   </div>
