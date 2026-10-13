@@ -56,6 +56,10 @@
     .audio button.off { color: #7a6a8a; border-color: #3a2a48; }
     #overlay.hidden, #hud.hidden, #dead.hidden { display: none; }
     body.shot #overlay { display: none; }
+    /* a sound from the world, told in words (the church's prayer): soft warm italics low on the screen, no panel, fading in and out */
+    #heard { position: fixed; left: 50%; top: 66%; transform: translateX(-50%); max-width: 80vw; text-align: center; color: #f4e2b0; font: italic 400 21px/1.4 Georgia, 'Times New Roman', serif; letter-spacing: 1px;
+      text-shadow: 0 0 10px rgba(255, 200, 110, 0.55), 2px 2px 0 #1a0a10; opacity: 0; transition: opacity 1.2s; pointer-events: none; }
+    #heard.on { opacity: 1; }
     #toast { position: fixed; left: 50%; bottom: 64px; transform: translateX(-50%); padding: 6px 14px; background: rgba(12, 10, 16, 0.82);
       color: #ffd890; font: 600 16px ui-monospace, Menlo, monospace; border: 2px solid #5a0a10; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
     #toast.on { opacity: 1; }
@@ -164,7 +168,7 @@
       color: #ffd890; font: 700 20px ui-monospace, Menlo, monospace; text-shadow: 3px 3px 0 #2a0006; pointer-events: none; }
     #dead h1 { font-size: 64px; margin: 0 0 12px; color: #ff3030; }
   </style>
-  <script type="module" crossorigin src="./assets/index-CYBYmFqZ.js"></script>
+  <script type="module" crossorigin src="./assets/index-RLg_UJer.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/three.module-BblPRNwT.js">
   <link rel="modulepreload" crossorigin href="./assets/config-BKam7wqf.js">
   <link rel="modulepreload" crossorigin href="./assets/game-7ina4Jtp.js">
@@ -203,6 +207,6 @@
   <div id="dead" class="hidden"><h1>ТЫ МЁРТВ</h1><p>Кликни, чтобы снова в бой</p></div>
   <div id="overlay"><h1>ЗОМБИ-ДОЛИНА</h1><p id="status">Загрузка мира…</p></div>
   <div id="menu" class="hidden"></div>
-  <div id="toast"></div>
+  <div id="toast"></div><div id="heard"></div>
 </body>
 </html>
